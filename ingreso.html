@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingreso de Siniestro</title>
+  <link rel="stylesheet" href="css/ingreso.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
+      <li><a href="consulta.html">Consulta de Estado</a></li>
+      <li><a href="reporte.html">Reportes</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>Ingreso de Siniestro</h1>
+    <p>Completa los datos. La validación de póliza y creación de ficha están simuladas con datos locales.</p>
+
+    <form>
+      <label>RUT del Asegurado</label>
+      <input type="text" placeholder="12.345.678-9">
+
+      <label>N° de Póliza</label>
+      <input type="text">
+
+      <label>Tipo de Daño</label>
+      <select>
+        <option>Selecciona...</option>
+        <option>Colisión</option>
+        <option>Robo</option>
+        <option>Incendio</option>
+      </select>
+
+      <label>Tipo de Vehículo</label>
+      <select>
+        <option>Selecciona...</option>
+        <option>Auto</option>
+        <option>Camioneta</option>
+        <option>Moto</option>
+      </select>
+
+      <label>Email de contacto</label>
+      <input type="email" placeholder="correo@dominio.cl">
+
+      <label>Teléfono</label>
+      <input type="tel" placeholder="+56 9 1234 5678">
+
+      <label>Adjuntar Documento</label>
+      <input type="file">
+
+      <div class="acciones">
+        <button class="btn-primario">Validar y crear ficha</button>
+        <button class="btn-secundario" type="reset">Limpiar</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>
