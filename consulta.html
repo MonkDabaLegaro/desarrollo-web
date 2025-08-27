@@ -11,7 +11,7 @@
     <ul>
       <li><a href="index.html">Inicio</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
-      <li><a href="consulta.html">Consulta de Estado</a></li>
+      <li><a href="consulta.html" class="active">Consulta de Estado</a></li>
       <li><a href="reporte.html">Reportes</a></li>
     </ul>
   </nav>
@@ -23,18 +23,41 @@
     <form>
       <input type="text" placeholder="RUT">
       <input type="text" placeholder="Número de Póliza">
-      <button class="btn-primario">Consultar</button>
+      <button type="submit" class="btn-primario">Consultar</button>
     </form>
 
-    <div class="progreso">
-      <span>Ingresado</span>
-      <span>En Evaluación</span>
-      <span>Finalizado</span>
+    <div class="progreso-container">
+      <div class="progreso">
+        <div class="paso completado">
+          <div class="circulo"></div>
+          <span>Ingresado</span>
+        </div>
+        <div class="linea completada"></div>
+        <div class="paso completado">
+          <div class="circulo"></div>
+          <span>En Evaluación</span>
+        </div>
+        <div class="linea completada"></div>
+        <div class="paso actual">
+          <div class="circulo">
+            <span class="check">✓</span>
+          </div>
+          <span>Finalizado</span>
+        </div>
+      </div>
     </div>
 
     <div class="detalle">
-      <p>🚚 Grúa: Grúa XYZ</p>
-      <p>🔧 Taller: Taller ABC</p>
+      <div class="detalle-item">
+        <span class="icono">🚚</span>
+        <span class="label">Grúa</span>
+        <span class="valor">Grúa XYZ</span>
+      </div>
+      <div class="detalle-item">
+        <span class="icono">🔧</span>
+        <span class="label">Taller</span>
+        <span class="valor">Taller ABC</span>
+      </div>
     </div>
   </main>
 </body>

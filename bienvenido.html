@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienvenido - Sistema de Asistencia</title>
-  <link rel="stylesheet" href="css/bienvenido.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav>
     <ul>
-      <li><a href="index.html">Inicio</a></li>
+      <li><a href="index.html" class="active">Inicio</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
       <li><a href="consulta.html">Consulta de Estado</a></li>
       <li><a href="reporte.html">Reportes</a></li>
@@ -21,18 +21,27 @@
     <p>Este sistema permite registrar y dar seguimiento a siniestros de manera rápida y segura.</p>
 
     <div class="alerta">
-      ⚠️ Demoras en taller X
+      <span class="icono-alerta">⚠️</span> Demoras en taller X
     </div>
 
     <div class="beneficios">
-      <span>✅ Rápida atención</span>
-      <span>🚗 Cobertura nacional</span>
-      <span>📞 24/7</span>
+      <div class="beneficio">
+        <span class="icono">✓</span>
+        <span>Rápida atención</span>
+      </div>
+      <div class="beneficio">
+        <span class="icono">🚗</span>
+        <span>Cobertura nacional</span>
+      </div>
+      <div class="beneficio">
+        <span class="icono">📞</span>
+        <span>24/7</span>
+      </div>
     </div>
 
     <div class="acciones">
-      <button class="btn-primario">Registrar siniestro</button>
-      <button class="btn-secundario">Consultar estado</button>
+      <button class="btn-primario" onclick="window.location.href='ingreso.html'">Registrar siniestro</button>
+      <button class="btn-secundario" onclick="window.location.href='consulta.html'">Consultar estado</button>
     </div>
   </main>
 </body>
