@@ -20,27 +20,24 @@
     <h1>Ingreso de Siniestro</h1>
     <p>Completa los datos. La validación de póliza y creación de ficha están simuladas con datos locales.</p>
 
-    <form>
+    <form id="form-siniestro">
       <div class="form-row">
         <div class="form-group">
           <label>RUT del Asegurado</label>
-          <input type="text" placeholder="12.345.676-5" value="12.345.676-5">
-          <small class="hint">Hint.Msg</small>
+          <input type="text" id="rut" placeholder="12.345.678-5" required>
+          <small class="hint">Ejemplo: 12345678-9</small>
         </div>
         <div class="form-group">
           <label>N° de Póliza</label>
-          <div class="input-with-icon">
-            <input type="text">
-            <span class="calendar-icon">📅</span>
-          </div>
+          <input type="text" id="poliza" required>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>Tipo de Daño</label>
-          <select>
-            <option>Selecciona...</option>
+          <select id="tipoDanio" required>
+            <option value="">Selecciona...</option>
             <option>Colisión</option>
             <option>Robo</option>
             <option>Incendio</option>
@@ -48,8 +45,8 @@
         </div>
         <div class="form-group">
           <label>Tipo de Vehículo</label>
-          <select>
-            <option>Selecciona...</option>
+          <select id="tipoVehiculo" required>
+            <option value="">Selecciona...</option>
             <option>Auto</option>
             <option>Camioneta</option>
             <option>Moto</option>
@@ -60,11 +57,11 @@
       <div class="form-row">
         <div class="form-group">
           <label>Email de contacto</label>
-          <input type="email" placeholder="correo@dominio.cl" value="correo@dominio.cl">
+          <input type="email" id="email" placeholder="correo@dominio.cl" required>
         </div>
         <div class="form-group">
           <label>Teléfono</label>
-          <input type="tel" placeholder="+56 9 1234 5678" value="+56 9 1234 5678">
+          <input type="tel" id="telefono" placeholder="+56 9 1234 5678" required>
         </div>
       </div>
 
@@ -83,5 +80,42 @@
       </div>
     </form>
   </main>
+
+  <!-- Scripts -->
+  <script src="js/siniestro.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const formulario = document.getElementById("form-siniestro");
+
+      formulario.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const rut = document.getElementById("rut").value.trim();
+        const numeroPoliza = document.getElementById("poliza").value.trim();
+        const tipoDanio = document.getElementById("tipoDanio").value;
+        const tipoVehiculo = document.getElementById("tipoVehiculo").value;
+        const email = document.getElementById("email").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+
+        if (!validarRUT(rut)) {
+          alert("RUT inválido. Formato esperado: 12345678-9");
+          return;
+        }
+
+        const datos = {
+          rut,
+          numeroPoliza,
+          tipoSeguro: tipoDanio,
+          vehiculo: tipoVehiculo,
+          email,
+          telefono
+        };
+
+        const nuevo = siniestroManager.crearSiniestro(datos);
+        alert("✅ Siniestro creado con ID: " + nuevo.id);
+        formulario.reset();
+      });
+    });
+  </script>
 </body>
 </html>

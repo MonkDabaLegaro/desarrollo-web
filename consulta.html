@@ -17,48 +17,63 @@
   </nav>
 
   <main>
-    <h1>Consulta de Estado del Siniestro</h1>
-    <p>Ingrese su RUT y número de póliza para consultar el estado de su siniestro.</p>
+    <h1>Consulta de Siniestro</h1>
+    <p>Ingrese su RUT y número de póliza para consultar la información de su siniestro.</p>
 
-    <form>
-      <input type="text" placeholder="RUT">
-      <input type="text" placeholder="Número de Póliza">
+    <form id="form-consulta">
+      <input type="text" id="rutConsulta" placeholder="RUT" required>
+      <input type="text" id="polizaConsulta" placeholder="Número de Póliza" required>
       <button type="submit" class="btn-primario">Consultar</button>
     </form>
 
-    <div class="progreso-container">
-      <div class="progreso">
-        <div class="paso completado">
-          <div class="circulo"></div>
-          <span>Ingresado</span>
-        </div>
-        <div class="linea completada"></div>
-        <div class="paso completado">
-          <div class="circulo"></div>
-          <span>En Evaluación</span>
-        </div>
-        <div class="linea completada"></div>
-        <div class="paso actual">
-          <div class="circulo">
-            <span class="check">✓</span>
-          </div>
-          <span>Finalizado</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="detalle">
-      <div class="detalle-item">
-        <span class="icono">🚚</span>
-        <span class="label">Grúa</span>
-        <span class="valor">Grúa XYZ</span>
-      </div>
-      <div class="detalle-item">
-        <span class="icono">🔧</span>
-        <span class="label">Taller</span>
-        <span class="valor">Taller ABC</span>
-      </div>
+    <div id="resultado" class="detalle" style="display:none; margin-top:20px;">
+      <h2>Información del Siniestro</h2>
+      <div class="detalle-item"><strong>RUT:</strong> <span id="resRut"></span></div>
+      <div class="detalle-item"><strong>N° Póliza:</strong> <span id="resPoliza"></span></div>
+      <div class="detalle-item"><strong>Tipo de Daño:</strong> <span id="resDanio"></span></div>
+      <div class="detalle-item"><strong>Vehículo:</strong> <span id="resVehiculo"></span></div>
+      <div class="detalle-item"><strong>Email:</strong> <span id="resEmail"></span></div>
+      <div class="detalle-item"><strong>Teléfono:</strong> <span id="resTelefono"></span></div>
     </div>
   </main>
+
+  <!-- Scripts -->
+  <script src="js/siniestro.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const formulario = document.getElementById("form-consulta");
+      const resultado = document.getElementById("resultado");
+
+      formulario.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const rut = document.getElementById("rutConsulta").value.trim();
+        const numeroPoliza = document.getElementById("polizaConsulta").value.trim();
+
+        if (!validarRUT(rut)) {
+          alert("RUT inválido. Formato esperado: 12345678-9");
+          return;
+        }
+
+        const siniestro = siniestroManager.buscarSiniestro(rut, numeroPoliza);
+
+        if (!siniestro) {
+          alert("No se encontró información para el RUT y póliza ingresados");
+          resultado.style.display = "none";
+          return;
+        }
+
+        // Mostrar los datos guardados
+        document.getElementById("resRut").textContent = siniestro.rut;
+        document.getElementById("resPoliza").textContent = siniestro.numeroPoliza;
+        document.getElementById("resDanio").textContent = siniestro.tipoSeguro;
+        document.getElementById("resVehiculo").textContent = siniestro.vehiculo;
+        document.getElementById("resEmail").textContent = siniestro.email;
+        document.getElementById("resTelefono").textContent = siniestro.telefono;
+
+        resultado.style.display = "block";
+      });
+    });
+  </script>
 </body>
 </html>

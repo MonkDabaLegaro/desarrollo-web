@@ -158,10 +158,7 @@ button {
   background: #e0e0e0;
 }
 
-.paso.actual .circulo {
-  background: #28a745;
-  color: white;
-}
+
 
 .check {
   font-size: 1.2em;
@@ -247,4 +244,18 @@ button {
   .detalle {
     text-align: center;
   }
+}
+
+/* En consulta.css */
+.icono-estado {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.circulo {
+    /* Mantener tus estilos actuales */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
