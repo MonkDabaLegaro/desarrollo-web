@@ -184,13 +184,31 @@ class SiniestroManager {
   }
 }
 
-// ✅ Función corregida: validar RUT sin puntos, solo con guion y dígito numérico o K
+// Función corregida: validar RUT sin puntos, solo con guion y dígito numérico o K
 function validarRUT(rut) {
   rut = rut.replace(/\s/g, ''); // quitar espacios
 
   // Solo formato XXXXXXXX-X (7 u 8 dígitos + guion + número o K)
   const regex = /^(\d{7,8})-([\dKk])$/;
-  return regex.test(rut);
+  const match = rut.match(regex);
+  if (!match) return false;
+
+  const cuerpo = match[1];
+  const dv = match[2].toUpperCase();
+
+  // Calcular dígito verificador
+  let suma = 0;
+  let multiplo = 2;
+
+  for (let i = cuerpo.length - 1; i >= 0; i--) {
+    suma += parseInt(cuerpo.charAt(i)) * multiplo;
+    multiplo = multiplo === 7 ? 2 : multiplo + 1;
+  }
+
+  const dvEsperado = 11 - (suma % 11);
+  const dvCalculado = dvEsperado === 11 ? '0' : dvEsperado === 10 ? 'K' : dvEsperado.toString();
+
+  return dv === dvCalculado;
 }
 
 // Mantengo la función de formateo simple (opcional)
@@ -253,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const nuevo = siniestroManager.crearSiniestro(datos);
-    alert("✅ Siniestro creado con ID: " + nuevo.id);
+    alert("Siniestro creado con ID: " + nuevo.id);
     formulario.reset();
   });
 });
