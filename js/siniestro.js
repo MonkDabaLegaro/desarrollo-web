@@ -184,51 +184,40 @@ class SiniestroManager {
   }
 }
 
-// Funciones de utilidad para validación
+// ✅ Función corregida: validar RUT sin puntos, solo con guion y dígito numérico o K
 function validarRUT(rut) {
-  // Eliminar puntos, guiones y espacios
-  rut = rut.replace(/[\.\-\s]/g, '');
-  
-  if (rut.length < 2) return false;
-  
-  // Separar número y dígito verificador
-  const cuerpo = rut.slice(0, -1);
-  const dv = rut.slice(-1).toUpperCase();
-  
-  // Validar que el cuerpo sea numérico
-  if (!/^\d+$/.test(cuerpo)) {
-    return false;
-  }
-  
-  // Calcular dígito verificador esperado
+  rut = rut.replace(/\s/g, ''); // quitar espacios
+
+  // Solo formato XXXXXXXX-X (7 u 8 dígitos + guion + número o K)
+  const regex = /^(\d{7,8})-([\dKk])$/;
+  const match = rut.match(regex);
+  if (!match) return false;
+
+  const cuerpo = match[1];
+  const dv = match[2].toUpperCase();
+
+  // Calcular dígito verificador
   let suma = 0;
   let multiplo = 2;
-  
+
   for (let i = cuerpo.length - 1; i >= 0; i--) {
     suma += parseInt(cuerpo.charAt(i)) * multiplo;
     multiplo = multiplo === 7 ? 2 : multiplo + 1;
   }
-  
+
   const dvEsperado = 11 - (suma % 11);
-  let dvCalculado = dvEsperado === 11 ? '0' : dvEsperado === 10 ? 'K' : dvEsperado.toString();
-  
-  return dvCalculado === dv;
+  const dvCalculado = dvEsperado === 11 ? '0' : dvEsperado === 10 ? 'K' : dvEsperado.toString();
+
+  return dv === dvCalculado;
 }
 
+// Mantengo la función de formateo simple (opcional)
 function formatearRUT(rut) {
-  // Limpiar RUT
-  rut = rut.replace(/[\.\-\s]/g, '');
-  
-  if (rut.length < 2) return rut;
-  
-  // Formatear con puntos y guión
-  const cuerpo = rut.slice(0, -1);
-  const dv = rut.slice(-1);
-  
-  // Agregar puntos cada 3 dígitos
-  const cuerpoFormateado = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  
-  return `${cuerpoFormateado}-${dv}`;
+  rut = rut.replace(/\s/g, '');
+  const regex = /^(\d+)-([\dKk])$/;
+  const match = rut.match(regex);
+  if (!match) return rut;
+  return `${match[1]}-${match[2].toUpperCase()}`;
 }
 
 function formatearFecha(fecha) {
@@ -251,3 +240,38 @@ function formatearFechaHora(fecha) {
 
 // Instancia global del manager
 const siniestroManager = new SiniestroManager();
+
+// Captura de formulario en ingreso.html
+document.addEventListener("DOMContentLoaded", () => {
+  const formulario = document.getElementById("form-siniestro");
+  if (!formulario) return;
+
+  formulario.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const rut = document.getElementById("rut").value.trim();
+    const numeroPoliza = document.getElementById("poliza").value.trim();
+    const tipoDanio = document.getElementById("tipoDanio").value;
+    const tipoVehiculo = document.getElementById("tipoVehiculo").value;
+    const email = document.getElementById("email").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+
+    if (!validarRUT(rut)) {
+      alert("RUT inválido. Formato esperado: 12345678-9 o 12345678-K");
+      return;
+    }
+
+    const datos = {
+      rut: formatearRUT(rut), // normaliza a mayúscula si es K
+      numeroPoliza,
+      tipoSeguro: tipoDanio,
+      vehiculo: tipoVehiculo,
+      email,
+      telefono
+    };
+
+    const nuevo = siniestroManager.crearSiniestro(datos);
+    alert("✅ Siniestro creado con ID: " + nuevo.id);
+    formulario.reset();
+  });
+});
