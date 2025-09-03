@@ -5,7 +5,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     const password = document.getElementById("password").value.trim();
     const errorMsg = document.getElementById("errorMsg");
   
-    // 🔑 Credenciales de ejemplo
+    // Credenciales de ejemplo
     const adminUser = "admin";
     const adminPass = "1234";
   
