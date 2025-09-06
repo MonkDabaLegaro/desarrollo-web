@@ -3,17 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio - Sistema de Asistencia</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Panel Administrador - Sistema de Asistencia</title>
   <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-  <header class="main-header">
+  <header class="admin-header">
     <div class="header-content">
-      <div class="header-logo">
-        <img src="image/logo.png" alt="Logo" class="logo-image">
-      </div>
-      <h1>Sistema de Asistencia Vehicular</h1>
+      <h1>Panel Administrador</h1>
       <div class="user-info">
         <span>Bienvenido, <strong>Administrador</strong></span>
         <button onclick="logout()" class="btn-logout">Cerrar Sesión</button>
@@ -21,16 +17,16 @@
     </div>
   </header>
 
-  <nav class="main-nav">
+  <nav class="admin-nav">
     <ul>
-      <li><a href="bienvenida.html" class="active">Inicio</a></li>
+      <li><a href="admin.html" class="active">Dashboard</a></li>
       <li><a href="ingreso.html">Ingreso de Siniestro</a></li>
       <li><a href="consulta.html">Consulta de Estado</a></li>
       <li><a href="reporte.html">Reportes</a></li>
     </ul>
   </nav>
 
-  <main class="main-content">
+  <main class="admin-main">
     <div class="welcome-section">
       <h2>Bienvenido al Sistema de Gestión de Siniestros</h2>
       <p>Desde este panel puedes gestionar todos los aspectos del sistema de asistencia vehicular.</p>
@@ -38,9 +34,7 @@
 
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">
-          <img src="image/list.png" alt="Siniestros Activos" class="stat-image">
-        </div>
+        <div class="stat-icon">📋</div>
         <div class="stat-content">
           <h3>Siniestros Activos</h3>
           <p class="stat-number">24</p>
@@ -49,9 +43,7 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">
-          <img src="image/YellowCheckmark.png" alt="Completados" class="stat-image">
-        </div>
+        <div class="stat-icon">✅</div>
         <div class="stat-content">
           <h3>Completados Hoy</h3>
           <p class="stat-number">8</p>
@@ -60,9 +52,7 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">
-          <img src="image/folder.png" alt="Grúas" class="stat-image">
-        </div>
+        <div class="stat-icon">🚗</div>
         <div class="stat-content">
           <h3>Grúas Disponibles</h3>
           <p class="stat-number">12</p>
@@ -71,9 +61,7 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">
-          <img src="image/list.png" alt="Talleres" class="stat-image">
-        </div>
+        <div class="stat-icon">🔧</div>
         <div class="stat-content">
           <h3>Talleres Activos</h3>
           <p class="stat-number">6</p>
